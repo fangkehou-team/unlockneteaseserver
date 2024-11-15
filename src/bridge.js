@@ -18,10 +18,10 @@ const distribute = (url, router) =>
 			argument = JSON.parse(argument);
 		} catch (e) {}
 		const miss = route.some((path) => {
-			if (path in pointer) pointer = pointer[path];
+			if (path in pointer) pointer = pointer[path].check;
 			else return true;
 		});
-		if (miss || typeof pointer != 'function') return Promise.reject();
+		if (miss) return Promise.reject();
 
 		return cs.cache(argument, () => pointer(argument));
 	});
